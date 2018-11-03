@@ -24,7 +24,7 @@ blocks:
           commands:
             - checkout
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
-			- cp D1 Dockerimage
+			- cp D1 Dockerfile
             - docker build -t go_hw:v1 .
             - docker tag go_hw:v1 "$DOCKER_USERNAME"/"$IMAGE_NAME"
             - docker push "$DOCKER_USERNAME"/"$IMAGE_NAME"
@@ -41,7 +41,7 @@ blocks:
         - name: Use restored Docker image as cache
           commands:
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
-			- cp D1 Dockerimage
+			- cp D1 Dockerfile
             - docker pull "$DOCKER_USERNAME"/"$IMAGE_NAME"
             - docker build --cache-from "$CACHE_IMAGE:$BRANCH_NAME" -t go_hw:v2 .
             - docker images
