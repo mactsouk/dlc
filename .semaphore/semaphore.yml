@@ -24,7 +24,7 @@ blocks:
           commands:
             - checkout
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
-            - echo $SEMAPHORE_WORKFLOW_ID
+			- cp D1 Dockerimage
             - docker build -t go_hw:v1 .
             - docker tag go_hw:v1 "$DOCKER_USERNAME"/"$IMAGE_NAME"
             - docker push "$DOCKER_USERNAME"/"$IMAGE_NAME"
@@ -40,11 +40,10 @@ blocks:
       jobs:
         - name: Use restored Docker image as cache
           commands:
-            - echo $SEMAPHORE_WORKFLOW_ID
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
-            - docker images
+			- cp D1 Dockerimage
             - docker pull "$DOCKER_USERNAME"/"$IMAGE_NAME"
-            - docker build --cache-from $CACHE_IMAGE:$BRANCH_NAME -t go_hw:v2 .
+            - docker build --cache-from "$CACHE_IMAGE:$BRANCH_NAME" -t go_hw:v2 .
             - docker images
             - docker run go_hw:v2
 
