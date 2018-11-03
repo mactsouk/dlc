@@ -35,6 +35,7 @@ blocks:
       jobs:
         - name: Use restored Docker image as cache
           commands:
+            - checkout
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
             - cp D2 Dockerfile
             - docker pull "$DOCKER_USERNAME"/"$SEMAPHORE_GIT_BRANCH"
