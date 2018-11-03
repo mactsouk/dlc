@@ -17,8 +17,8 @@ blocks:
   - name: Create Docker image
     task:
       env_vars:
-        - IMAGE_NAME: "$SEMAPHORE_GIT_BRANCH"
-
+        - name: IMAGE_NAME
+		  value: "$SEMAPHORE_GIT_BRANCH"
       jobs:
         - name: Store Docker image in Registry
           commands:
@@ -36,7 +36,8 @@ blocks:
   - name: Use previous image
     task:
       env_vars:
-        - IMAGE_NAME: "$SEMAPHORE_GIT_BRANCH"
+        - name: IMAGE_NAME
+		  value: "$SEMAPHORE_GIT_BRANCH"
       jobs:
         - name: Use restored Docker image as cache
           commands:
