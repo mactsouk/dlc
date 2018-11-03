@@ -18,7 +18,7 @@ blocks:
     task:
       env_vars:
         - name: IMAGE_NAME
-		  value: "$SEMAPHORE_GIT_BRANCH"
+          value: "$SEMAPHORE_GIT_BRANCH"
       jobs:
         - name: Store Docker image in Registry
           commands:
@@ -37,7 +37,7 @@ blocks:
     task:
       env_vars:
         - name: IMAGE_NAME
-		  value: "$SEMAPHORE_GIT_BRANCH"
+          value: "$SEMAPHORE_GIT_BRANCH"
       jobs:
         - name: Use restored Docker image as cache
           commands:
