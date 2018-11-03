@@ -16,9 +16,6 @@ promotions:
 blocks:
   - name: Create Docker image
     task:
-      env_vars:
-        - name: IMAGE_NAME
-          value: "$SEMAPHORE_GIT_BRANCH"
       jobs:
         - name: Store Docker image in Registry
           commands:
@@ -26,8 +23,8 @@ blocks:
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
             - cp D1 Dockerfile
             - docker build -t go_hw:v1 .
-            - docker tag go_hw:v1 "$DOCKER_USERNAME"/"$IMAGE_NAME"
-            - docker push "$DOCKER_USERNAME"/"$IMAGE_NAME"
+            - docker tag go_hw:v1 "$DOCKER_USERNAME"/"$SEMAPHORE_GIT_BRANCH"
+            - docker push "$DOCKER_USERNAME"/"$SEMAPHORE_GIT_BRANCH"
             - docker images
 
       secrets:
@@ -35,9 +32,6 @@ blocks:
 
   - name: Use previous image
     task:
-      env_vars:
-        - name: IMAGE_NAME
-          value: "$SEMAPHORE_GIT_BRANCH"
       jobs:
         - name: Use restored Docker image as cache
           commands:
