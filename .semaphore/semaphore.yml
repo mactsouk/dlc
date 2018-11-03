@@ -5,14 +5,6 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 
-promotions:
-- name: Staging
-  pipeline_file: p1.yml
-  auto_promote_on:
-    - result: passed
-      branch:
-        - "master"
-
 blocks:
   - name: Create Docker image
     task:
@@ -36,6 +28,7 @@ blocks:
         - name: Use restored Docker image as cache
           commands:
             - checkout
+            - docker images
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
             - cp D2 Dockerfile
             - docker pull "$DOCKER_USERNAME"/"$SEMAPHORE_GIT_BRANCH"
