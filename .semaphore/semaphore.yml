@@ -41,9 +41,9 @@ blocks:
         - name: Use restored Docker image as cache
           commands:
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
-            - cp D1 Dockerfile
-            - docker pull "$DOCKER_USERNAME"/"$IMAGE_NAME"
-            - docker build --cache-from "$CACHE_IMAGE:$BRANCH_NAME" -t go_hw:v2 .
+            - cp D2 Dockerfile
+            - docker pull "$DOCKER_USERNAME"/"$SEMAPHORE_GIT_BRANCH"
+            - docker build --cache-from "$CACHE_IMAGE:$SEMAPHORE_GIT_BRANCH" -t go_hw:v2 .
             - docker images
             - docker run go_hw:v2
 
