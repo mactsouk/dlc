@@ -15,8 +15,8 @@ blocks:
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
             - cp D1 Dockerfile
             - docker build -t go_hw:v1 .
-            - docker tag go_hw:v1 "$DOCKER_USERNAME"/"$SEMAPHORE_GIT_BRANCH"
-            - docker push "$DOCKER_USERNAME"/"$SEMAPHORE_GIT_BRANCH"
+            - docker tag go_hw:v1 "$DOCKER_USERNAME"/go_hw:"$SEMAPHORE_GIT_BRANCH"
+            - docker push "$DOCKER_USERNAME"/go_hw:"$SEMAPHORE_GIT_BRANCH"
             - docker images
 
       secrets:
@@ -31,8 +31,8 @@ blocks:
             - docker images
             - echo $DOCKER_PASSWORD | docker login --username "$DOCKER_USERNAME" --password-stdin
             - cp D2 Dockerfile
-            - docker pull "$DOCKER_USERNAME"/"$SEMAPHORE_GIT_BRANCH"
-            - docker build --cache-from "$CACHE_IMAGE:$SEMAPHORE_GIT_BRANCH" -t go_hw:v2 .
+            - docker pull "$DOCKER_USERNAME"/go_hw:"$SEMAPHORE_GIT_BRANCH"
+            - docker build --cache-from "$DOCKER_USERNAME:go_hw:$SEMAPHORE_GIT_BRANCH" -t go_hw:v2 .
             - docker images
             - docker run go_hw:v2
 
