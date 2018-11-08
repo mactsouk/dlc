@@ -17,7 +17,6 @@ blocks:
             - docker build -t go_hw:v1 .
             - docker tag go_hw:v1 "$DOCKER_USERNAME"/go_hw:"$SEMAPHORE_GIT_BRANCH"
             - docker push "$DOCKER_USERNAME"/go_hw:"$SEMAPHORE_GIT_BRANCH"
-            - docker images
 
       secrets:
       - name: docker-hub
